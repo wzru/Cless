@@ -57,17 +57,21 @@ fabric.properties
 .DS_Store
 *.exe
 *.input
-test*
 *.tab.*
+./test
+*.json
+*.ll
+*.bc
+*.png
+*.jpg
 
 cless
 grammar.cpp
 grammar.hpp
 lexer.cpp
 
+img/
 build/
-graphs/
-tests/
-visualization/
 
 !test.input
+!tests/test*.input

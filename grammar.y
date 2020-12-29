@@ -1,7 +1,7 @@
 %{
 	#include "ast.h"
 	#include <stdio.h>
-	NBlock* programBlock;
+	NBlock* pb;
 	extern int yylex();
 	void yyerror(const char* s)
 	{
@@ -43,7 +43,7 @@
 %start program
 
 %%
-program : stmts { programBlock = $1; }
+program : stmts { pb = $1; }
 				;
 stmts : stmt { $$ = new NBlock(); $$->statements->push_back(shared_ptr<NStatement>($1)); }
 			| stmts stmt { $1->statements->push_back(shared_ptr<NStatement>($2)); }

@@ -5,24 +5,22 @@
 #include "code_gen.h"
 #include "obj_gen.h"
 
-extern shared_ptr<NBlock> programBlock;
+extern shared_ptr<NBlock> pb;
 extern int yyparse();
 
 int main() {
   yyparse();
-  // std::cout << programBlock << std::endl;
-  programBlock->print("--");
-  auto root = programBlock->jsonGen();
-  CodeGenContext context;
-  //    createCoreFunctions(context);
-  context.generateCode(*programBlock);
-  ObjGen(context, "output.o");
-  string jsonFile = "visualization/A_tree.json";
-  std::ofstream astJson(jsonFile);
+  pb->print("--");
+  auto root = pb->jsonGen();
+  CodeGenContext ctx;
+  ctx.generateCode(*pb);
+  ObjGen(ctx, "output.o");
+  string json = "visual/ast_tree.json";
+  std::ofstream astJson(json);
   if (astJson.is_open()) {
     astJson << root;
     astJson.close();
-    cout << "json write to " << jsonFile << endl;
+    cout << "json write to " << json << endl;
   }
   return 0;
 }
