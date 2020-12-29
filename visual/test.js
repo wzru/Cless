@@ -17,7 +17,7 @@ var svg = d3.select("body").append("svg")
     .attr("transform","translate(40,0)");
 
 //读取json文件，进行绘图
-d3.json("ast_tree.json",function(erro,root){
+d3.json("ast.json",function(erro,root){
     var nodes = tree.nodes(root);
     var links = tree.links(nodes);
 

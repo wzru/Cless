@@ -15,7 +15,7 @@ int main() {
   CodeGenContext ctx;
   ctx.generateCode(*pb);
   ObjGen(ctx, "output.o");
-  string json = "visual/ast_tree.json";
+  string json = "visual/ast.json";
   std::ofstream astJson(json);
   if (astJson.is_open()) {
     astJson << root;

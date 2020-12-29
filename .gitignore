@@ -49,17 +49,12 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-# vscode
-.vscode/*
-
 *.o
 *.output
 .DS_Store
 *.exe
 *.input
 *.tab.*
-./test
-*.json
 *.ll
 *.bc
 *.png
@@ -69,6 +64,8 @@ cless
 grammar.cpp
 grammar.hpp
 lexer.cpp
+ast.json
+test
 
 img/
 build/
