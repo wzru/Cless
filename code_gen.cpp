@@ -606,7 +606,7 @@ llvm::Value* NLiteral::codeGen(CodeGenContext& context) {
  */
 
 std::unique_ptr<NExpression> LogError(const char* str) {
-  fprintf(stderr, "LogError: %s\n", str);
+  fprintf(stderr, "\e[1;41mLogError: %s\e[0m\n", str);
   return nullptr;
 }
 
