@@ -1,0 +1,69 @@
+program -> stmts 
+stmts -> stmt 
+			| stmts stmt 
+stmt -> var_decl | func_decl | struct_decl
+		 | expr 
+		 | TRETURN expr 
+		 | if_stmt
+		 | for_stmt
+		 | while_stmt 
+block -> TLBRACE stmts TRBRACE 
+			| TLBRACE TRBRACE 
+primary_typename -> TYINT 
+					| TYDOUBLE 
+					| TYFLOAT 
+					| TYCHAR 
+					| TYBOOL 
+					| TYVOID 
+					| TYSTRING 
+array_typename -> primary_typename TLBRACKET TINTEGER TRBRACKET 
+				| array_typename TLBRACKET TINTEGER TRBRACKET
+struct_typename -> TSTRUCT ident
+typename -> primary_typename 
+			| array_typename 
+			| struct_typename 
+var_decl -> typename ident 
+				 | typename ident TEQUAL expr 
+				 | typename ident TEQUAL TLBRACKET call_args TRBRACKET
+func_decl -> typename ident TLPAREN func_decl_args TRPAREN block
+			| TEXTERN typename ident TLPAREN func_decl_args TRPAREN 
+func_decl_args -> /* blank */ 
+							 | var_decl 
+							 | func_decl_args TCOMMA var_decl 			 
+ident -> TIDENTIFIER 
+numeric -> TINTEGER 
+				| TDOUBLE 
+expr -> 	assign 
+		 | ident TLPAREN call_args TRPAREN 
+		 | ident 
+		 | ident TDOT ident 
+		 | numeric
+		 | expr comparison expr 
+		 | expr TMOD expr 
+		 | expr TMUL expr 
+		 | expr TDIV expr 
+		 | expr TPLUS expr 
+		 | expr TMINUS expr 
+		 | TLPAREN expr TRPAREN 
+		 | TMINUS expr 
+		 | array_index 
+		 | TLITERAL 
+array_index -> ident TLBRACKET expr TRBRACKET 
+				| array_index TLBRACKET expr TRBRACKET 
+assign -> ident TEQUAL expr 
+			| array_index TEQUAL expr 
+			| ident TDOT ident TEQUAL expr 
+call_args -> /* blank */ 
+					| expr 
+					| call_args TCOMMA expr 
+comparison -> TCEQ | TCNE | TCLT | TCLE | TCGT | TCGE
+				 | TAND | TOR | TXOR | TSHIFTL | TSHIFTR
+					 if_stmt -> TIF expr block 
+		| TIF expr block TELSE block 
+		| TIF expr block TELSE if_stmt
+for_stmt -> TFOR TLPAREN expr TSEMICOLON expr TSEMICOLON expr TRPAREN block 
+while_stmt -> TWHILE TLPAREN expr TRPAREN block 
+struct_decl -> TSTRUCT ident TLBRACE struct_members TRBRACE 
+struct_members : /* blank */ 
+				| var_decl 
+				| struct_members var_decl
